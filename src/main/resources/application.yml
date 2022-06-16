@@ -1,0 +1,38 @@
+#server:
+#  port: 8082
+
+spring:
+  datasource:
+    #需要连接的本地数据库
+    url: jdbc:mysql://dev-mysql.lepudigital.com:3308/test?useUnicode=true&characterEncoding=UTF-8&serverTimezone=GMT%2B8
+    #驱动
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: lepu2_test_user  #用户名
+    password: YQybuuCUcF2coXUq  #密码
+
+# 配置核心线程数
+async:
+  executor:
+    thread:
+      core_pool_size: 6
+      # 配置最大线程数
+      max_pool_size: 12
+      # 配置队列大小
+      queue_capacity: 1024
+      # 配置线程最大空闲时间
+      keep_alive_seconds: 30
+      # 配置线程池中的线程的名称前缀
+      name:
+        prefix: test-async-
+
+#整合MyBatis
+mybatis:
+   #mapper.xml的目录
+  mapper-locations: classpath:mybatis/mapper/*.xml
+   #实体类的目录
+  type-aliases-package: com.deom.entity
+
+
+logging:
+  level:
+    root: debug
