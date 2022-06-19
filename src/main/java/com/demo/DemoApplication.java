@@ -1,5 +1,6 @@
 package com.demo;
 
+import com.ctrip.framework.apollo.spring.annotation.EnableApolloConfig;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -10,6 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  */
 @MapperScan({"com.demo.dao"})
 @SpringBootApplication
+@EnableApolloConfig
 public class DemoApplication {
     public static void main(String[] args) {
 

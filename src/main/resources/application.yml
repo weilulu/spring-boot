@@ -1,5 +1,7 @@
 #server:
 #  port: 8082
+app:
+  id: lepu-activity-center
 
 spring:
   datasource:
@@ -16,11 +18,11 @@ async:
     thread:
       core_pool_size: 6
       # 配置最大线程数
-      max_pool_size: 12
+      max_pool_size: 8
       # 配置队列大小
-      queue_capacity: 1024
+      queue_capacity: 20
       # 配置线程最大空闲时间
-      keep_alive_seconds: 30
+      keep_alive_seconds: 3
       # 配置线程池中的线程的名称前缀
       name:
         prefix: test-async-
@@ -32,6 +34,12 @@ mybatis:
    #实体类的目录
   type-aliases-package: com.deom.entity
 
+apollo:
+  cacheDir: ./cacheConfig
+  meta: http://apollo.lepudigital.com:8080
+  bootstrap:
+    enabled: true
+    namespaces: application,t1_develop.common,t1_develop.middleware_mq
 
 logging:
   level:

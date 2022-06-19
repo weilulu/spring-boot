@@ -22,8 +22,8 @@ public class ThreadPoolController {
 
     @RequestMapping("/test")
     public String test() {
-        for(int i=0;i<8;i++) {
-            threadExecutorService.test2();
+        for(int i=0;i<30;i++) {
+            threadExecutorService.test();
         }
         return "test";
     }

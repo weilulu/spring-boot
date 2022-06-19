@@ -17,7 +17,7 @@ public class ThreadExecutorService {
     @Async("selfExecutor1")
     public  void test(){
         try {
-            TimeUnit.SECONDS.sleep(1);
+            TimeUnit.SECONDS.sleep(3);
         }catch (InterruptedException e){
             //不处理中断异常
         }

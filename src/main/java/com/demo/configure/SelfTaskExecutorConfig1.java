@@ -44,7 +44,8 @@ public class SelfTaskExecutorConfig1 {
         //设置线程的最大空闲时间，超过了核心线程数之外的线程，在空闲时间到达之后会被销毁
         executor.setKeepAliveSeconds(keepAliveSeconds);
         //设置拒绝策略
-        executor.setRejectedExecutionHandler(new ThreadPoolExecutor.CallerRunsPolicy());
+        //executor.setRejectedExecutionHandler(new ThreadPoolExecutor.CallerRunsPolicy());
+        executor.setRejectedExecutionHandler(new SelfRejectHandle());
         //线程池关闭时等待任务执行完成
         executor.setWaitForTasksToCompleteOnShutdown(true);
         //承接上一参数，等待时长，如果任务未执行完成达到等待时长后强制关闭
@@ -52,7 +53,7 @@ public class SelfTaskExecutorConfig1 {
         //设置线程名前缀
         executor.setThreadNamePrefix(namePrefix+"1-");
         // 线程池初始化
-        executor.initialize();
+        //executor.initialize();
 
         return executor;
     }
@@ -91,7 +92,7 @@ public class SelfTaskExecutorConfig1 {
 
         @Override
         public void rejectedExecution(Runnable r, ThreadPoolExecutor executor) {
-
+            System.out.println("执行了自定义的拒绝策略-------");
         }
     }
 }
