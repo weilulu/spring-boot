@@ -1,7 +1,6 @@
 package com.demo.configure.threadpool;
 
 import com.ctrip.framework.apollo.Config;
-import com.ctrip.framework.apollo.ConfigChangeListener;
 import com.ctrip.framework.apollo.ConfigService;
 import com.ctrip.framework.apollo.model.ConfigChange;
 import com.ctrip.framework.apollo.model.ConfigChangeEvent;
@@ -53,7 +52,7 @@ public class DynamicThreadPoolConfig {
 
     /** * 初始化 */
     private void init(Config config) {
-        System.out.println("start init..........");
+        log.info("线程池初始化中..........");
         if (executor == null) {
 
             synchronized (DynamicThreadPoolConfig.class) {
@@ -61,6 +60,7 @@ public class DynamicThreadPoolConfig {
                 if (executor == null) {
 
                     String corePoolSizeProperty = config.getProperty("corePoolSize", corePoolSize.toString());
+                    log.info("修改前的核心线程池:{}",corePoolSizeProperty);
                     String maximumPoolSizeProperty = config.getProperty("maximumPoolSize", maximumPoolSize.toString());
                     String keepAliveTImeProperty = config.getProperty("keepAliveTime", keepAliveTime.toString());
                     BlockingQueue<Runnable> workQueueProperty = new LinkedBlockingQueue<>(workQueueSize);
@@ -71,16 +71,14 @@ public class DynamicThreadPoolConfig {
         }
     }
 
-    @PostConstruct
-    public void initApolloClient(){
-        config.addChangeListener(configChangeEvent -> {
-            System.out.println("线程池参数配置发生变化,namespace:{}"+configChangeEvent.getNamespace());
-            for(String key : configChangeEvent.changedKeys()){
-                ConfigChange change = configChangeEvent.getChange(key);
+    @ApolloConfigChangeListener
+    public void onChange(ConfigChangeEvent changeEvent){
+        log.info("线程池参数配置发生变化,namespace:{}",changeEvent.getNamespace());
+            for(String key : changeEvent.changedKeys()){
+                ConfigChange change = changeEvent.getChange(key);
                 String newValue = change.getNewValue();
                 refreshThreadPool(key,newValue);
             }
-        });
     }
 
     /** * 刷新线程池 */
@@ -93,7 +91,7 @@ public class DynamicThreadPoolConfig {
         if (ParamsEnum.CORE_POOL_SIZE.getParam().equals(key)) {
 
             executor.setCorePoolSize(Integer.valueOf(newValue));
-            System.out.println("修改核心线程数key={},value={}"+key+newValue);
+            log.info("修改核心线程数key={},value={}",key,newValue);
         }
         if (ParamsEnum.MAXIMUM_POOL_SIZE.getParam().equals(key)) {
 

@@ -46,7 +46,7 @@ public class DynamicThreadPoolController {
     @RequestMapping("/getThreadPoolInfo")
     public String getThreadPoolInfo() {
         if(selfExecutor1 != null){
-            ThreadPoolExecutor threadPoolExecutor = selfExecutor1.getThreadPoolExecutor();
+            ThreadPoolExecutor threadPoolExecutor = dynamicThreadExecutor.getExecutor("test");
             int corePoolSize = threadPoolExecutor.getCorePoolSize();
             int maximumPoolSize = threadPoolExecutor.getMaximumPoolSize();
             int poolSize = threadPoolExecutor.getPoolSize();
