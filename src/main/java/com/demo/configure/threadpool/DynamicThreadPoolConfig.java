@@ -8,9 +8,6 @@ import com.ctrip.framework.apollo.spring.annotation.ApolloConfigChangeListener;
 import com.demo.constants.ParamsEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-
-import javax.annotation.PostConstruct;
-import javax.annotation.Resource;
 import java.util.concurrent.*;
 
 /**
@@ -41,13 +38,10 @@ public class DynamicThreadPoolConfig {
     /** 线程名 **/
     private String threadName;
 
-    private Config config = ConfigService.getConfig("lepu-activity-center");;
+    private Config config = ConfigService.getConfig("lepu-activity-center");
 
     public DynamicThreadPoolConfig() {
-
-        //Config config = ConfigService.getConfig(NAME_SPACE);
         init(config);
-        //listen(config);
     }
 
     /** * 初始化 */
@@ -83,30 +77,25 @@ public class DynamicThreadPoolConfig {
 
     /** * 刷新线程池 */
     private void refreshThreadPool(String key, String newValue) {
-
         if (executor == null) {
-
             return;
         }
         if (ParamsEnum.CORE_POOL_SIZE.getParam().equals(key)) {
-
             executor.setCorePoolSize(Integer.valueOf(newValue));
             log.info("修改核心线程数key={},value={}",key,newValue);
         }
         if (ParamsEnum.MAXIMUM_POOL_SIZE.getParam().equals(key)) {
-
             executor.setMaximumPoolSize(Integer.valueOf(newValue));
             log.info("修改最大线程数key={},value={}", key, newValue);
         }
         if (ParamsEnum.KEEP_ALIVE_TIME.getParam().equals(key)) {
-
             executor.setKeepAliveTime(Integer.valueOf(newValue), TimeUnit.MILLISECONDS);
             log.info("修改线程空闲时间key={},value={}", key, newValue);
         }
     }
 
 
-    public ThreadPoolExecutor getExecutor(String threadName) {
+    public ThreadPoolExecutor getExecutor() {
         return executor;
     }
 }

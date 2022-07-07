@@ -15,16 +15,16 @@ public class DynamicThreadExecutor {
     @Resource
     private DynamicThreadPoolConfig threadPoolFactory;
 
-    public ThreadPoolExecutor getExecutor(String bizName){
-        return threadPoolFactory.getExecutor(bizName);
+    public ThreadPoolExecutor getExecutor(){
+        return threadPoolFactory.getExecutor();
     }
-    public void execute(String bizName, Runnable job) {
+    public void execute(Runnable job) {
 
-        threadPoolFactory.getExecutor(bizName).execute(job);
+        threadPoolFactory.getExecutor().execute(job);
     }
 
-    public Future<?> submit(String bizName, Runnable job) {
+    public Future<?> submit(Runnable job) {
 
-        return threadPoolFactory.getExecutor(bizName).submit(job);
+        return threadPoolFactory.getExecutor().submit(job);
     }
 }
