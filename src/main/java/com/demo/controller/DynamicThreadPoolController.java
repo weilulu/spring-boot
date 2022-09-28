@@ -32,6 +32,7 @@ public class DynamicThreadPoolController {
             dynamicThreadExecutor.execute(new Runnable() {
                 @Override
                 public void run() {
+
                     System.out.println("bizInfo");
                 }
             });

@@ -5,6 +5,7 @@ import com.demo.configure.login.LoginRequiredArgumentResolver;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -17,7 +18,8 @@ import java.util.List;
 @MapperScan({"com.demo.dao"})
 @SpringBootApplication
 @EnableApolloConfig
-public class DemoApplication implements WebMvcConfigurer {
+@EnableScheduling
+public class DemoApplication {
     public static void main(String[] args) {
 
         SpringApplication.run(DemoApplication.class, args);
