@@ -29,10 +29,9 @@ public class DynamicThreadPoolController {
     @RequestMapping("/dynamicThreadPoolConfig")
     public String dynamicThreadPoolConfig(){
         while (true) {
-            dynamicThreadExecutor.execute("bizName", new Runnable() {
+            dynamicThreadExecutor.execute(new Runnable() {
                 @Override
                 public void run() {
-
                     System.out.println("bizInfo");
                 }
             });
@@ -46,7 +45,7 @@ public class DynamicThreadPoolController {
     @RequestMapping("/getThreadPoolInfo")
     public String getThreadPoolInfo() {
         if(selfExecutor1 != null){
-            ThreadPoolExecutor threadPoolExecutor = dynamicThreadExecutor.getExecutor("test");
+            ThreadPoolExecutor threadPoolExecutor = dynamicThreadExecutor.getExecutor();
             int corePoolSize = threadPoolExecutor.getCorePoolSize();
             int maximumPoolSize = threadPoolExecutor.getMaximumPoolSize();
             int poolSize = threadPoolExecutor.getPoolSize();
