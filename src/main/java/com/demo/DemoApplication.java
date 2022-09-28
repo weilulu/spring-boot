@@ -19,7 +19,7 @@ import java.util.List;
 @SpringBootApplication
 @EnableApolloConfig
 @EnableScheduling
-public class DemoApplication {
+public class DemoApplication implements WebMvcConfigurer{
     public static void main(String[] args) {
 
         SpringApplication.run(DemoApplication.class, args);
